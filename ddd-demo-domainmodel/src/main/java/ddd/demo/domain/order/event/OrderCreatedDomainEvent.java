@@ -1,7 +1,7 @@
 package ddd.demo.domain.order.event;
 
-import easy.domain.event.IDomainEvent;
 
+import easy.domain.event.IDomainEvent;
 
 public class OrderCreatedDomainEvent implements IDomainEvent {
     private long orderId;

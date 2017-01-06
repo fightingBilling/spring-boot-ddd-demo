@@ -1,25 +1,18 @@
 package ddd.demo.application.order;
 
-import ddd.demo.domain.order.event.OrderCreatedDomainEvent;
-import ddd.demo.domain.order.event.OrderOutDomainEvent;
-import ddd.demo.domain.order.model.DeliveryAddressInfo;
-import ddd.demo.domain.order.model.Order;
-import ddd.demo.domain.order.model.OrderItem;
-import ddd.demo.domain.order.model.VendorInfo;
+import ddd.demo.domain.order.event.*;
+import ddd.demo.domain.order.model.*;
 import ddd.demo.domain.order.repository.IOrderRepository;
-import ddd.demo.domain.order.service.PayPriceService;
-import ddd.demo.domain.order.service.TotalPriceService;
+import ddd.demo.domain.order.service.*;
 import easy.domain.application.BaseApplication;
-import easy.domain.application.BaseReturn;
+import easy.domain.application.result.IBaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static javafx.scene.input.KeyCode.O;
 
 /**
  * 订单应用服务层
@@ -38,10 +31,10 @@ public class OrderApplication extends BaseApplication {
      * @param orderId
      * @return
      */
-    public BaseReturn<Order> findById(long orderId) {
+    public IBaseResult<Order> findById(long orderId) {
         Order o = this.orderRepository.findBy(orderId);
 
-        return this.write("findById", o);
+        return this.write(o);
     }
 
     /**

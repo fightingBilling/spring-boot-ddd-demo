@@ -23,7 +23,7 @@ public class OrderApplicationTest extends BaseTest {
     private OrderApplication orderApplication;
 
     @Test
-    public void addOrderTest() {
+    public void addOrderTest() throws Exception {
 
         VendorInfo vendorInfo = new VendorInfo(1, "中国");
 
@@ -38,7 +38,7 @@ public class OrderApplicationTest extends BaseTest {
 
         this.orderApplication.create(vendorInfo, 1, new BigDecimal("12"), orderItemList, deliveryAddressInfo);
 
-        
+        Thread.sleep(10000);
 
     }
 
