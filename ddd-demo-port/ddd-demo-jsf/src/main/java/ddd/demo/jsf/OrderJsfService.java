@@ -1,0 +1,49 @@
+package ddd.demo.jsf;
+
+import ddd.demo.application.order.IOrderElasticSearchQuery;
+import ddd.demo.application.order.OrderApplication;
+import ddd.demo.domain.order.model.VendorInfo;
+import ddd.demo.jsf.api.order.IOrderService;
+import ddd.demo.jsf.api.order.OrderDto;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+
+public class OrderJsfService implements IOrderService {
+    @Autowired
+    private OrderApplication orderApplication;
+    @Autowired
+    private IOrderElasticSearchQuery orderElasticSearchQuery;
+
+    @Override
+    public void create(OrderDto orderDto) {
+        this.orderApplication.create(new VendorInfo(1L, "sdf"), 1, BigDecimal.ONE, null, null);
+    }
+
+    @Override
+    public void out(long orderId) {
+        this.orderApplication.out(orderId);
+    }
+
+    @Override
+    public void confirm(long orderId) {
+        this.orderApplication.confirm(orderId);
+    }
+
+    @Override
+    public void cancel(long orderId) {
+        this.orderApplication.cancel(orderId);
+    }
+
+    @Override
+    public void complete(long orderId) {
+        this.orderApplication.complete(orderId);
+    }
+
+    @Override
+    public void delivery(long orderId) {
+        this.delivery(orderId);
+    }
+}
