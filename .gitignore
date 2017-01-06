@@ -1,0 +1,6 @@
+/*.iml
+/ddd-demo-port/*.iml
+/ddd-demo-infrastructure/*.iml
+/ddd-demo-domainmodel/*.iml
+/ddd-demo-application/*.iml
+/.idea
