@@ -1,7 +1,9 @@
 package ddd.demo.application;
 
 import ddd.demo.application.aspect.ApplicationInterceptor;
+import ddd.demo.application.aspect.TestBeanFactory;
 import ddd.demo.application.aspect.TestBeanPostProcessor;
+import ddd.demo.application.order.ITestBean;
 import ddd.demo.application.order.OrderApplication;
 import ddd.demo.application.order.ordercreatedomaineventsubsriber.UpdateEsSubscriber;
 import ddd.demo.domain.order.event.OrderCreatedDomainEvent;
@@ -45,6 +47,11 @@ public class ApplicationConfig {
     @Bean
     public UpdateEsSubscriber updateEsSubscriber() {
         return new UpdateEsSubscriber();
+    }
+
+    @Bean
+    public TestBeanFactory testBeanFactory() {
+        return new TestBeanFactory();
     }
 
     @Bean

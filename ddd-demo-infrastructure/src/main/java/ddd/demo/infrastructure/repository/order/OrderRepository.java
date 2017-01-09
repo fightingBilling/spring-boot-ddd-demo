@@ -3,6 +3,7 @@ package ddd.demo.infrastructure.repository.order;
 import ddd.demo.domain.order.model.OrderItem;
 import ddd.demo.domain.order.repository.IOrderRepository;
 import ddd.demo.domain.order.model.Order;
+import org.apache.commons.lang.NotImplementedException;
 import org.joda.time.DateTime;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,10 @@ public class OrderRepository implements IOrderRepository {
     @Override
     public Order findBy(Long orderId) {
         return this.sqlSessionTemplate.selectOne("Order.findOrderOne", orderId);
+    }
+
+    @Override
+    public void throwTest() {
+        throw new NotImplementedException();
     }
 }

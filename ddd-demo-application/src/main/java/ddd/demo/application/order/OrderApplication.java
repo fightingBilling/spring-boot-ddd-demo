@@ -24,6 +24,9 @@ public class OrderApplication extends BaseApplication {
     @Autowired
     private PlatformTransactionManager platformTransactionManager;
 
+    @Autowired
+    private ITestBean testBean;
+
 
     /**
      * 根据订单ID查询详情

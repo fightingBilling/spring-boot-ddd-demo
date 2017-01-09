@@ -8,4 +8,5 @@ public interface IOrderRepository {
     void add(Order order);
     void update(Order order);
     Order findBy(Long orderId);
+    void throwTest();
 }

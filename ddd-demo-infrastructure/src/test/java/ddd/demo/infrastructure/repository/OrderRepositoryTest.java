@@ -82,6 +82,12 @@ public class OrderRepositoryTest {
 
     }
 
+    @Test
+    public void throwTest() {
+        this.orderRepository.throwTest();
+    }
+
+
     private Order create() {
 
         long orderId = this.orderRepository.getNexOrderId();
