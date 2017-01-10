@@ -1,8 +1,8 @@
 package ddd.demo.infrastructure.elasticsearch;
 
 
-import ddd.demo.application.order.IOrderElasticSearchQuery;
-import ddd.demo.infrastructure.elasticsearch.order.OrderElasticSearchQuery;
+import ddd.demo.domain.order.repository.IOrderQueryRepository;
+import ddd.demo.infrastructure.elasticsearch.order.OrderQueryRepository;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -26,10 +26,9 @@ public class ElasticsSearchConfig {
     public ElasticsearchTemplate elasticsearchTemplate() throws Exception {
         return new ElasticsearchTemplate(transportClient());
     }
-
     @Bean
-    public IOrderElasticSearchQuery orderElasticSearchQuery() throws Exception {
-        return new OrderElasticSearchQuery(elasticsearchTemplate());
+    public IOrderQueryRepository orderQueryRepository(){
+        return new OrderQueryRepository();
     }
 
 

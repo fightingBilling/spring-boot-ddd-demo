@@ -1,12 +1,7 @@
 package ddd.demo.application.aspect;
 
-import ddd.demo.application.order.IOrderElasticSearchQuery;
 import ddd.demo.application.order.ITestBean;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.core.ResolvableType;
 
 
 public class TestBeanFactory implements FactoryBean<ITestBean> {

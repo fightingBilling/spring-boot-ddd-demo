@@ -1,7 +1,6 @@
 package ddd.demo.api.controllers;
 
 import com.alibaba.fastjson.JSON;
-import ddd.demo.application.order.IOrderElasticSearchQuery;
 import ddd.demo.application.order.OrderApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

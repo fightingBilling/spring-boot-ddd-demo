@@ -1,7 +1,9 @@
 package ddd.demo.application.order.ordercreatedomaineventsubsriber;
 
-import ddd.demo.application.order.IOrderElasticSearchQuery;
 import ddd.demo.domain.order.event.OrderCreatedDomainEvent;
+import ddd.demo.domain.order.model.Order;
+import ddd.demo.domain.order.repository.IOrderQueryRepository;
+import ddd.demo.domain.order.repository.IOrderRepository;
 import easy.domain.event.IDomainEvent;
 import easy.domain.event.IDomainEventSubscriber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UpdateEsSubscriber implements IDomainEventSubscriber<OrderCreatedDomainEvent> {
 
     @Autowired
-    private IOrderElasticSearchQuery query;
+    private IOrderQueryRepository query;
+
+    @Autowired
+    private IOrderRepository orderRepository;
 
     @Override
     public void handleEvent(OrderCreatedDomainEvent orderCreatedDomainEvent) {
-        System.out.println(orderCreatedDomainEvent.getOrderId());
+
+        Order order = this.orderRepository.findBy(orderCreatedDomainEvent.getOrderId());
+        this.query.add(order);
 
     }
 
