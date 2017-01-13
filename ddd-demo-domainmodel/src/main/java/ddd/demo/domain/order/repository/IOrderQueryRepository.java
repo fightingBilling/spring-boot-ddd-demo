@@ -2,6 +2,8 @@ package ddd.demo.domain.order.repository;
 
 import ddd.demo.domain.order.model.Order;
 import ddd.demo.domain.order.viewmodel.OrderViewModel;
+import ddd.demo.domain.order.viewmodel.QueryViewModel;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 import java.util.List;
 
@@ -27,13 +29,26 @@ public interface IOrderQueryRepository {
 
     /**
      * 添加询数据源数据
+     *
      * @param order
      */
     void add(Order order);
 
     /**
      * 更新查询数据源数据
+     *
      * @param order
      */
     void update(Order order);
+
+    /**
+     * 分页查询订单列表
+     *
+     * @param query
+     * @param pageIndex
+     * @param pageSize
+     * @param totalRows
+     * @return
+     */
+    List<OrderViewModel> pageList(QueryViewModel query, int pageIndex, int pageSize, MutableInt totalRows);
 }

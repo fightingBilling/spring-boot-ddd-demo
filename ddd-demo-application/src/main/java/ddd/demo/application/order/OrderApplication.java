@@ -6,8 +6,11 @@ import ddd.demo.domain.order.repository.IOrderQueryRepository;
 import ddd.demo.domain.order.repository.IOrderRepository;
 import ddd.demo.domain.order.service.*;
 import ddd.demo.domain.order.viewmodel.OrderViewModel;
+import ddd.demo.domain.order.viewmodel.QueryViewModel;
 import easy.domain.application.BaseApplication;
 import easy.domain.application.result.IBaseResult;
+import easy.domain.repository.framework.Page;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -64,6 +67,7 @@ public class OrderApplication extends BaseApplication {
      * @param deliveryAddressInfo 收货地址
      */
     public void create(VendorInfo vendorInfo, Integer userId, BigDecimal discountPrice, List<OrderItem> orderItemList, DeliveryAddressInfo deliveryAddressInfo) throws Exception {
+
         Long orderId = this.orderRepository.getNexOrderId();
         BigDecimal totalPrice = new TotalPriceService().getTotalPrice(orderItemList);
         BigDecimal payPrice = new PayPriceService().getPayPrice(totalPrice, discountPrice);
@@ -192,5 +196,23 @@ public class OrderApplication extends BaseApplication {
         List<OrderViewModel> orderViewModels = this.orderQueryRepository.readyOutTimeOut(venderId);
 
         return this.write(orderViewModels);
+    }
+
+    /**
+     * 分页查询订单列表
+     *
+     * @param query
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    public IBaseResult<Page<OrderViewModel>> pageList(QueryViewModel query, int pageIndex, int pageSize) {
+
+        MutableInt totalRows = new MutableInt(0);
+        List<OrderViewModel> orderViewModelList = this.orderQueryRepository.pageList(query, pageIndex, pageSize, totalRows);
+
+        Page<OrderViewModel> page = new Page<>(totalRows.intValue(), orderViewModelList);
+
+        return this.write(page);
     }
 }
