@@ -12,16 +12,14 @@ import java.math.BigDecimal;
 public class OrderJsfService implements IOrderService {
     @Autowired
     private OrderApplication orderApplication;
-    @Autowired
-    private IOrderElasticSearchQuery orderElasticSearchQuery;
 
     @Override
-    public void create(OrderDto orderDto) {
+    public void create(OrderDto orderDto) throws Exception {
         this.orderApplication.create(new VendorInfo(1L, "sdf"), 1, BigDecimal.ONE, null, null);
     }
 
     @Override
-    public void out(long orderId) {
+    public void out(long orderId) throws Exception {
         this.orderApplication.out(orderId);
     }
 

@@ -12,6 +12,6 @@ public class ApplicationInterceptor {
 
     @Before(value = "within(ddd.demo.application..*) && target(easy.domain.application.BaseApplication)")
     public void beforeCall(JoinPoint joinPoint) {
-        System.out.println("a");
+        System.out.println(joinPoint.getSignature().getName());
     }
 }

@@ -1,4 +1,4 @@
-package ddd.demo.application.order.ordercreatedomaineventsubsriber;
+package ddd.demo.application.order.ordercreated;
 
 import ddd.demo.domain.order.event.OrderCreatedDomainEvent;
 import ddd.demo.domain.order.model.Order;
@@ -25,8 +25,9 @@ public class UpdateEsSubscriber implements IDomainEventSubscriber<OrderCreatedDo
 
     }
 
+
     @Override
-    public <T extends IDomainEvent> Class<?> suscribedToEventType() {
+    public Class<?> suscribedToEventType() {
         return OrderCreatedDomainEvent.class;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -18,8 +20,6 @@ public class OrderController {
 
     @Autowired
     private OrderApplication orderApplication;
-    @Autowired
-    private IOrderElasticSearchQuery orderElasticsearchQuery;
 
     @GetMapping("/id")
     @ResponseBody
@@ -39,10 +39,8 @@ public class OrderController {
         });
     }
 
-    @GetMapping("/es")
-    @ResponseBody
-    public List<Map> es() {
-        return this.orderElasticsearchQuery.findAll();
+    @GetMapping("/test")
+    public void test(HttpServletResponse response) throws Exception {
+        this.orderApplication.eventTest();
     }
-
 }

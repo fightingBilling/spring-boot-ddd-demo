@@ -11,6 +11,7 @@ import easy.domain.application.result.IBaseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.util.StopWatch;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,6 +29,17 @@ public class OrderApplication extends BaseApplication {
 
     @Autowired
     private PlatformTransactionManager platformTransactionManager;
+
+    public void eventTest() throws Exception {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        for (int i = 0; i < 5000; i++) {
+
+            this.publishEvent(new OrderDeliveredDomainEvent(i));
+        }
+        stopWatch.stop();
+        System.out.println(String.format("total millis = %s", stopWatch.getTotalTimeMillis()));
+    }
 
 
     /**
@@ -51,7 +63,7 @@ public class OrderApplication extends BaseApplication {
      * @param orderItemList       订单明细
      * @param deliveryAddressInfo 收货地址
      */
-    public void create(VendorInfo vendorInfo, Integer userId, BigDecimal discountPrice, List<OrderItem> orderItemList, DeliveryAddressInfo deliveryAddressInfo) {
+    public void create(VendorInfo vendorInfo, Integer userId, BigDecimal discountPrice, List<OrderItem> orderItemList, DeliveryAddressInfo deliveryAddressInfo) throws Exception {
         Long orderId = this.orderRepository.getNexOrderId();
         BigDecimal totalPrice = new TotalPriceService().getTotalPrice(orderItemList);
         BigDecimal payPrice = new PayPriceService().getPayPrice(totalPrice, discountPrice);
@@ -77,7 +89,7 @@ public class OrderApplication extends BaseApplication {
     /**
      * 订单确认
      *
-     * @param orderId
+     * @param orderId 订单ID
      */
     public void confirm(long orderId) {
         Order order = this.orderRepository.findBy(orderId);
@@ -92,7 +104,7 @@ public class OrderApplication extends BaseApplication {
      *
      * @param orderId 订单ID
      */
-    public void out(long orderId) {
+    public void out(long orderId) throws Exception {
         Order order = this.orderRepository.findBy(orderId);
         order.out();
         if (order.validate()) {
@@ -107,18 +119,20 @@ public class OrderApplication extends BaseApplication {
      *
      * @param orderId 订单ID
      */
-    public void delivery(long orderId) {
+    public void delivery(long orderId) throws Exception {
         Order order = this.orderRepository.findBy(orderId);
         order.delivery();
         if (order.validate()) {
             orderRepository.update(order);
         }
+
+        this.publishEvent(new OrderDeliveredDomainEvent(orderId));
     }
 
     /**
      * 订单完成 订单ID
      *
-     * @param orderId
+     * @param orderId 订单ID
      */
     public void complete(long orderId) {
         Order order = this.orderRepository.findBy(orderId);
@@ -131,7 +145,7 @@ public class OrderApplication extends BaseApplication {
     /**
      * 订单取消
      *
-     * @param orderId
+     * @param orderId 订单ID
      */
     public void cancel(long orderId) {
         Order order = this.orderRepository.findBy(orderId);
@@ -144,8 +158,8 @@ public class OrderApplication extends BaseApplication {
     /**
      * 修改订单收货地址
      *
-     * @param orderId
-     * @param deliveryAddressInfo
+     * @param orderId             订单ID
+     * @param deliveryAddressInfo 新收货地址
      */
     public void changeDeliveryAddress(long orderId, DeliveryAddressInfo deliveryAddressInfo) {
         Order order = this.orderRepository.findBy(orderId);
