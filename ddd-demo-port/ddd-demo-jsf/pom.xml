@@ -69,7 +69,7 @@
         </dependency>
         <dependency>
             <groupId>com.jd.pop.order.around</groupId>
-            <artifactId>pop-order-around</artifactId>
+            <artifactId>pop-order-around-soa</artifactId>
             <version>1.6.6-SNAPSHOT</version>
         </dependency>
         <dependency>
