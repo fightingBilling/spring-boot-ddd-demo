@@ -36,5 +36,10 @@
             <artifactId>spring-tx</artifactId>
             <version>4.3.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>easy-domain-activemqdomainevent</groupId>
+            <artifactId>easy-domain-activemqdomainevent</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

@@ -2,12 +2,18 @@ package ddd.demo.api.controllers;
 
 import com.alibaba.fastjson.JSON;
 import ddd.demo.application.order.OrderApplication;
+import ddd.demo.domain.order.model.DeliveryAddressInfo;
+import ddd.demo.domain.order.model.OrderItem;
+import ddd.demo.domain.order.model.VendorInfo;
 import ddd.demo.domain.order.viewmodel.QueryViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -17,6 +23,19 @@ public class OrderController {
 
     @Autowired
     private OrderApplication orderApplication;
+
+    @GetMapping("/create")
+    @ResponseBody
+    public String create() throws Exception {
+
+        List<OrderItem> orderItemList = new ArrayList<>();
+        orderItemList.add(new OrderItem(1, 1, new BigDecimal("100")));
+
+
+        this.orderApplication.create(new VendorInfo(1, "aaa"), 1, new BigDecimal("10"), orderItemList, new DeliveryAddressInfo("a", "b", "c"));
+
+        return "OK";
+    }
 
     /**
      * 订单详情

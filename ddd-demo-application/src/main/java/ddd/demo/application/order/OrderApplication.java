@@ -9,6 +9,7 @@ import ddd.demo.domain.order.viewmodel.OrderViewModel;
 import ddd.demo.domain.order.viewmodel.QueryViewModel;
 import easy.domain.application.BaseApplication;
 import easy.domain.application.result.IBaseResult;
+import easy.domain.application.subscriber.IDomainEventManager;
 import easy.domain.repository.framework.Page;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class OrderApplication extends BaseApplication {
 
     @Autowired
     private PlatformTransactionManager platformTransactionManager;
+
+    public OrderApplication(IDomainEventManager domainEventManager) {
+        super(domainEventManager);
+    }
 
     public void eventTest() throws Exception {
         StopWatch stopWatch = new StopWatch();
@@ -66,7 +71,7 @@ public class OrderApplication extends BaseApplication {
      * @param orderItemList       订单明细
      * @param deliveryAddressInfo 收货地址
      */
-    public void create(VendorInfo vendorInfo, Integer userId, BigDecimal discountPrice, List<OrderItem> orderItemList, DeliveryAddressInfo deliveryAddressInfo) throws Exception {
+    public void create(VendorInfo vendorInfo, int userId, BigDecimal discountPrice, List<OrderItem> orderItemList, DeliveryAddressInfo deliveryAddressInfo) throws Exception {
 
         Long orderId = this.orderRepository.getNexOrderId();
         BigDecimal totalPrice = new TotalPriceService().getTotalPrice(orderItemList);

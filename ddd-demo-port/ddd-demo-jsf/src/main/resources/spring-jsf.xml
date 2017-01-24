@@ -14,5 +14,5 @@
                   ref="orderServiceImpl" server="jsf">
     </jsf:provider>
     
-    <jsf:consumer id="MaliciousOrderApplyService" interface="com.jd.pop.order.around.soa.maliciousorderapply.MaliciousOrderApplyService" alias="POP_TEST" protocol="jsf" timeout="100000"></jsf:consumer>
+    <jsf:consumer id="MaliciousOrderApplyService" interface="com.jd.pop.order.around.soa.maliciousorderapply.MaliciousOrderApplyService" alias="POP_TEST" protocol="jsf" timeout="100000" />
 </beans>

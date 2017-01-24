@@ -13,11 +13,13 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration(exclude = {AopAutoConfiguration.class, DataSourceAutoConfiguration.class})
 @Import(value = {RepositoryConfig.class, ElasticsSearchConfig.class, ApplicationConfig.class, TaskScheduleConfig.class})
+
 public class App {
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(App.class);
